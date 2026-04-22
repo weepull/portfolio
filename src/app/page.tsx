@@ -139,12 +139,6 @@ export default function Page() {
               <span>See all at</span>
               <Icons.github className="size-6" />
             </Link>
-             <p className="text-sm text-wrap text-center">
-              Credits to <Link className="font-semibold hover:text-blue-500" href="https://www.github.com/kartikkpawar">
-                Kartik Pawar {" "}
-              </Link>
-              for this beautiful website
-            </p>
           </div>
         </div>
       </section>{" "}
