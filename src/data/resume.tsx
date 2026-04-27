@@ -4,8 +4,8 @@ import { BoxIcon, HomeIcon, MessageCircleMore } from "lucide-react";
 export const DATA = {
   name: "Vipul Parmar",
   initials: "VP",
-  url: "https://github.com/VipulParmar",
-  github: "https://github.com/VipulParmar",
+  url: "https://github.com/weepull",
+  github: "https://github.com/weepull",
   location: "Mumbai, IN",
   locationLink: "https://www.google.com/maps/place/Mumbai",
   description:
@@ -36,13 +36,13 @@ export const DATA = {
     social: {
       GitHub: {
         name: "GitHub",
-        url: "https://github.com/VipulParmar",
+        url: "https://github.com/weepull",
         icon: Icons.github,
         navbar: true,
       },
       LinkedIn: {
         name: "LinkedIn",
-        url: "https://www.linkedin.com/in/vipul-parmar",
+        url: "https://www.linkedin.com/in/vipul-parmar-886b48256/",
         icon: Icons.linkedin,
         navbar: true,
       },
