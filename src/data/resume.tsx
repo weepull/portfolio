@@ -24,7 +24,6 @@ export const DATA = {
     "AI engineer. I build LLM retrieval pipelines and explainable computer-vision systems for medical imaging.",
   summary:
     "B.Tech in AI & Data Science (2026). I currently work as a Prompt Engineer at Faible Media, designing and stress-testing prompts for two production generative pipelines.\n\nMy own work sits in two places. **Retrieval and LLM systems** — most recently [Research Gap Hunter](https://github.com/weepull), a FastAPI/Neo4j/Qdrant platform that mines stated limitations from a 127-paper corpus and ranks underexplored research gaps. **Explainable medical imaging** — unsupervised anomaly detection on chest X-rays with Swin Transformer, and CNN/ResNet-18 classifiers with Grad-CAM.\n\nTwo published papers, and a third accepted at ICNDIA 2026 (IEEE).",
-  avatarUrl: "",
   skills: [
     "Python",
     "PyTorch",
@@ -234,5 +233,4 @@ export const DATA = {
       video: "",
     },
   ],
-  upcomingProjects: [],
 } as const;
