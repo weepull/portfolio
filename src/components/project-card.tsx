@@ -40,44 +40,63 @@ export function ProjectCard({
   links,
   className,
 }: Props) {
+  // Stretched-link pattern: the title link's ::after covers the whole card so
+  // the card is clickable without nesting anchors. Inner links (description
+  // markdown, Source/Paper badges) sit above it with relative z-10.
   return (
     <Card
-      className={
-        "flex flex-col overflow-hidden border hover:shadow-lg transition-all duration-300 ease-out h-full"
-      }
+      className={cn(
+        "group relative flex flex-col overflow-hidden border transition-all duration-300 ease-out h-full",
+        href &&
+          "hover:shadow-lg hover:border-foreground/30 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-ring",
+        className
+      )}
     >
-      <Link
-        href={href || "#"}
-        className={cn("block cursor-pointer", className)}
-      >
-        {video && (
-          <video
-            src={video}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="pointer-events-none mx-auto h-40 w-full object-cover object-top" // needed because random black line at bottom of video
-          />
-        )}
-        {image && (
-          <Image
-            src={image}
-            alt={title}
-            width={500}
-            height={300}
-            className="h-40 w-full overflow-hidden object-cover object-top"
-          />
-        )}
-      </Link>
+      {video && (
+        <video
+          src={video}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="pointer-events-none mx-auto h-40 w-full object-cover object-top" // needed because random black line at bottom of video
+        />
+      )}
+      {image && (
+        <Image
+          src={image}
+          alt={title}
+          width={500}
+          height={300}
+          className="h-40 w-full overflow-hidden object-cover object-top"
+        />
+      )}
       <CardHeader className="px-2">
         <div className="space-y-1">
-          <CardTitle className="mt-1 text-base">{title}</CardTitle>
+          <CardTitle className="mt-1 text-base">
+            {href ? (
+              <Link
+                href={href}
+                target="_blank"
+                className="outline-none after:absolute after:inset-0 after:content-[''] group-hover:underline underline-offset-4"
+              >
+                {title}
+                <span
+                  aria-hidden
+                  className="ml-1 inline-block transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                >
+                  ↗
+                </span>
+              </Link>
+            ) : (
+              title
+            )}
+          </CardTitle>
           <time className="font-sans text-xs">{dates}</time>
           <div className="hidden font-sans text-xs underline print:visible">
             {link?.replace("https://", "").replace("www.", "").replace("/", "")}
           </div>
-          <Markdown className="prose max-w-full text-pretty font-sans text-xs text-muted-foreground dark:prose-invert">
+          <Markdown className="prose max-w-full text-pretty font-sans text-xs text-muted-foreground dark:prose-invert [&_a]:relative [&_a]:z-10">
             {description}
           </Markdown>
         </div>
@@ -101,7 +120,12 @@ export function ProjectCard({
         {links && links.length > 0 && (
           <div className="flex flex-row flex-wrap items-start gap-1">
             {links?.map((link, idx) => (
-              <Link href={link?.href} key={idx} target="_blank">
+              <Link
+                href={link.href}
+                key={idx}
+                target="_blank"
+                className="relative z-10"
+              >
                 <Badge key={idx} className="flex gap-2 px-2 py-1 text-[10px]">
                   {link.icon}
                   {link.type}
