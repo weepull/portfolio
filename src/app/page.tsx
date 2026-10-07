@@ -4,6 +4,7 @@ import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { ProjectCard } from "@/components/project-card";
 import { ResumeCard } from "@/components/resume-card";
 import { Badge } from "@/components/ui/badge";
+import { buttonVariants } from "@/components/ui/button";
 import { DATA } from "@/data/resume";
 import Link from "next/link";
 import Markdown from "react-markdown";
@@ -28,6 +29,27 @@ export default function Page() {
                 delay={BLUR_FADE_DELAY}
                 text={DATA.description}
               />
+              <BlurFade delay={BLUR_FADE_DELAY * 2}>
+                <div className="flex flex-wrap gap-2 pt-3">
+                  {DATA.hero.links.map((link) => {
+                    const external = link.href.startsWith("http");
+                    return (
+                      <Link
+                        key={link.label}
+                        href={link.href}
+                        target={external ? "_blank" : undefined}
+                        className={buttonVariants({
+                          variant: link.primary ? "default" : "outline",
+                          size: "sm",
+                        })}
+                      >
+                        {link.icon && <link.icon className="size-4 mr-2" />}
+                        {link.label}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </BlurFade>
             </div>
           </div>
         </div>

@@ -9,6 +9,7 @@ export const SITE_URL =
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : "http://localhost:3000");
 
+const GITHUB_URL = "https://github.com/weepull";
 const EMAIL = "vipulparmar3018@gmail.com";
 const LINKEDIN_URL = "https://www.linkedin.com/in/vipul-parmar-886b48256";
 
@@ -16,7 +17,7 @@ export const DATA = {
   name: "Vipul Parmar",
   initials: "VP",
   url: SITE_URL,
-  github: "https://github.com/weepull",
+  github: GITHUB_URL,
   location: "Mumbai, IN",
   locationLink: "https://www.google.com/maps/place/Mumbai",
   description:
@@ -44,6 +45,12 @@ export const DATA = {
     "Git",
     "Java",
   ],
+  hero: {
+    links: [
+      { label: "GitHub", href: GITHUB_URL, icon: Icons.github, primary: true },
+      { label: "Projects", href: "#projects", icon: null, primary: false },
+    ],
+  },
   sections: {
     projects: {
       label: "Projects",
@@ -65,7 +72,7 @@ export const DATA = {
     social: {
       GitHub: {
         name: "GitHub",
-        url: "https://github.com/weepull",
+        url: GITHUB_URL,
         icon: Icons.github,
         navbar: true,
       },
