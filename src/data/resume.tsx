@@ -9,6 +9,9 @@ export const SITE_URL =
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : "http://localhost:3000");
 
+const EMAIL = "vipulparmar3018@gmail.com";
+const LINKEDIN_URL = "https://www.linkedin.com/in/vipul-parmar-886b48256";
+
 export const DATA = {
   name: "Vipul Parmar",
   initials: "VP",
@@ -41,9 +44,23 @@ export const DATA = {
     "Git",
     "Java",
   ],
+  sections: {
+    projects: {
+      label: "Projects",
+      heading: "Things I've built",
+      intro:
+        "Retrieval and LLM systems, and explainable models for medical imaging. Each one links to its source.",
+      seeAll: "See all on",
+    },
+    contact: {
+      label: "Contact",
+      heading: "Get in touch",
+      body: `I'm open to Applied AI and LLM engineering roles. The fastest way to reach me is [email](mailto:${EMAIL}) or [LinkedIn](${LINKEDIN_URL}).`,
+    },
+  },
   navbar: [{ href: "/", icon: HomeIcon, label: "Home" }],
   contact: {
-    email: "vipulparmar3018@gmail.com",
+    email: EMAIL,
     tel: "+917715937322",
     social: {
       GitHub: {
@@ -54,13 +71,13 @@ export const DATA = {
       },
       LinkedIn: {
         name: "LinkedIn",
-        url: "https://www.linkedin.com/in/vipul-parmar-886b48256",
+        url: LINKEDIN_URL,
         icon: Icons.linkedin,
         navbar: true,
       },
       email: {
         name: "Send Email",
-        url: "mailto:vipulparmar3018@gmail.com",
+        url: `mailto:${EMAIL}`,
         icon: Icons.email,
         navbar: false,
       },

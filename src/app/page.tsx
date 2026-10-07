@@ -140,14 +140,13 @@ export default function Page() {
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
-                  Projects
+                  {DATA.sections.projects.label}
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                  Things I&apos;ve built
+                  {DATA.sections.projects.heading}
                 </h2>
                 <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Retrieval and LLM systems, and explainable models for medical
-                  imaging. Each one links to its source.
+                  {DATA.sections.projects.intro}
                 </p>
               </div>
             </div>
@@ -178,7 +177,7 @@ export default function Page() {
               className="mx-auto w-max border flex gap-2 p-2 rounded-lg hover:bg-muted transition-colors"
               target="_blank"
             >
-              <span>See all on</span>
+              <span>{DATA.sections.projects.seeAll}</span>
               <Icons.github className="size-6" />
             </Link>
           </div>
@@ -190,30 +189,27 @@ export default function Page() {
           <BlurFade delay={BLUR_FADE_DELAY * 16}>
             <div className="space-y-3">
               <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
-                Contact
+                {DATA.sections.contact.label}
               </div>
               <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                Get in touch
+                {DATA.sections.contact.heading}
               </h2>
-              <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                I&apos;m open to Applied AI and LLM engineering roles. The
-                fastest way to reach me is{" "}
-                <Link
-                  href={`mailto:${DATA.contact.email}`}
-                  className="text-blue-500 hover:underline"
-                >
-                  email
-                </Link>
-                {" "}or{" "}
-                <Link
-                  href={DATA.contact.social.LinkedIn.url}
-                  target="_blank"
-                  className="text-blue-500 hover:underline"
-                >
-                  LinkedIn
-                </Link>
-                .
-              </p>
+              <Markdown
+                className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"
+                components={{
+                  a: ({ href, children }) => (
+                    <Link
+                      href={href ?? "#"}
+                      target={href?.startsWith("mailto:") ? undefined : "_blank"}
+                      className="text-blue-500 hover:underline"
+                    >
+                      {children}
+                    </Link>
+                  ),
+                }}
+              >
+                {DATA.sections.contact.body}
+              </Markdown>
             </div>
           </BlurFade>
         </div>

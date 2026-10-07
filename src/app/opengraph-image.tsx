@@ -51,7 +51,7 @@ export default async function Image() {
             color: "#71717a",
           }}
         >
-          github.com/weepull
+          {DATA.github.replace(/^https?:\/\//, "")}
         </div>
       </div>
     ),
