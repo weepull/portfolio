@@ -1,6 +1,15 @@
 "use client";
 
 import { AnimatePresence, motion, useInView, Variants } from "framer-motion";
+
+// framer-motion types the IntersectionObserver rootMargin as a template literal
+// union rather than a plain string; mirror that so the prop stays type-safe.
+type MarginValue = `${number}${"px" | "%"}`;
+type MarginType =
+  | MarginValue
+  | `${MarginValue} ${MarginValue}`
+  | `${MarginValue} ${MarginValue} ${MarginValue}`
+  | `${MarginValue} ${MarginValue} ${MarginValue} ${MarginValue}`;
 import { useRef } from "react";
 
 interface BlurFadeProps {
@@ -14,7 +23,7 @@ interface BlurFadeProps {
   delay?: number;
   yOffset?: number;
   inView?: boolean;
-  inViewMargin?: string;
+  inViewMargin?: MarginType;
   blur?: string;
 }
 const BlurFade = ({
