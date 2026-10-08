@@ -21,7 +21,7 @@ export default function Page() {
               <BlurFadeText
                 delay={BLUR_FADE_DELAY}
                 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none"
-                text={`Hi, I'm ${DATA.name.split(" ")[0]} 👋`}
+                text={DATA.hero.greeting}
               />
               <BlurFadeText
                 className="max-w-[600px] md:text-xl"

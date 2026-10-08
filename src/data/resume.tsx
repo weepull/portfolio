@@ -10,6 +10,7 @@ export const SITE_URL =
     : "http://localhost:3000");
 
 const GITHUB_URL = "https://github.com/weepull";
+const RESEARCH_GAP_HUNTER_URL = "https://github.com/weepull/research-gap-hunter";
 const EMAIL = "vipulparmar3018@gmail.com";
 const LINKEDIN_URL = "https://www.linkedin.com/in/vipul-parmar-886b48256";
 
@@ -23,7 +24,7 @@ export const DATA = {
   description:
     "AI engineer. I build LLM retrieval pipelines and explainable computer-vision systems for medical imaging.",
   summary:
-    "B.Tech in AI & Data Science (2026). I currently work as a Prompt Engineer at Faible Media, designing and stress-testing prompts for two production generative pipelines.\n\nMy own work sits in two places. **Retrieval and LLM systems** — most recently [Research Gap Hunter](https://github.com/weepull), a FastAPI/Neo4j/Qdrant platform that mines stated limitations from a 127-paper corpus and ranks underexplored research gaps. **Explainable medical imaging** — unsupervised anomaly detection on chest X-rays with Swin Transformer, and CNN/ResNet-18 classifiers with Grad-CAM.\n\nTwo published papers, and a third accepted at ICNDIA 2026 (IEEE).",
+    `B.Tech in AI & Data Science (2026). I currently work as a Prompt Engineer at Faible Media, designing and stress-testing prompts for two production generative pipelines.\n\nMy own work sits in two places. **Retrieval and LLM systems** — most recently [Research Gap Hunter](${RESEARCH_GAP_HUNTER_URL}), a FastAPI/Neo4j/Qdrant platform that mines stated limitations from a 127-paper corpus and ranks underexplored research gaps. **Explainable medical imaging** — unsupervised anomaly detection on chest X-rays with Swin Transformer, and CNN/ResNet-18 classifiers with Grad-CAM.\n\nOne published paper, and a second accepted at ICNDIA 2026 (IEEE).`,
   skills: [
     "Python",
     "PyTorch",
@@ -45,6 +46,7 @@ export const DATA = {
     "Java",
   ],
   hero: {
+    greeting: "Hi, I'm Vipul",
     links: [
       { label: "GitHub", href: GITHUB_URL, icon: Icons.github, primary: true },
       { label: "Projects", href: "#projects", icon: null, primary: false },
@@ -149,11 +151,11 @@ export const DATA = {
   projects: [
     {
       title: "Research Gap Hunter",
-      href: "https://github.com/weepull",
+      href: RESEARCH_GAP_HUNTER_URL,
       dates: "Aug 2026 – Present",
       active: true,
       description:
-        "Full-stack platform that reads academic papers and surfaces underexplored research gaps across computer vision and medical imaging, over a 127-paper corpus. An LLM extracts each paper's stated limitations and future directions, SPECTER2 embeddings index them in Qdrant, and Neo4j links papers to limitations so recurring gaps surface. Gaps are ranked by a composite of frequency, recency, and solution deficit, with similarity thresholds derived from null-distribution sampling (~1,490 pairs) rather than hand-tuning.",
+        "Mines stated limitations from a 127-paper corpus with an LLM, links them in Neo4j and Qdrant, and ranks underexplored research gaps by frequency, recency, and solution deficit.",
       technologies: [
         "FastAPI",
         "Neo4j",
@@ -166,7 +168,7 @@ export const DATA = {
       links: [
         {
           type: "Source",
-          href: "https://github.com/weepull",
+          href: RESEARCH_GAP_HUNTER_URL,
           icon: null,
         },
       ],
@@ -175,6 +177,10 @@ export const DATA = {
     },
     {
       title: "Chest X-ray Anomaly Detection & Summary Generation",
+      // TODO(vipul): add two sentences on the second half — the multimodal
+      // report-generation model (ViT encoder + transformer language decoder)
+      // behind the ICNDIA 2026 paper. Kept out of the rendered string so no
+      // placeholder ships.
       href: "https://github.com/weepull/Chest-Xray_Vipulcode",
       dates: "Sep 2025 – Present",
       active: true,
