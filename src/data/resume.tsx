@@ -1,5 +1,4 @@
 import { Icons } from "@/components/icons";
-import { HomeIcon } from "lucide-react";
 
 // Canonical site origin. On Vercel this resolves automatically from the
 // production domain; set NEXT_PUBLIC_SITE_URL to override.
@@ -71,7 +70,11 @@ export const DATA = {
       body: `I'm open to Applied AI and LLM engineering roles. The fastest way to reach me is [email](mailto:${EMAIL}) or [LinkedIn](${LINKEDIN_URL}).`,
     },
   },
-  navbar: [{ href: "/", icon: HomeIcon, label: "Home" }],
+  navbar: [
+    { href: "#projects", label: "Projects" },
+    { href: "#about", label: "About" },
+    { href: "#work", label: "Experience" },
+  ],
   contact: {
     email: EMAIL,
     tel: "+917715937322",

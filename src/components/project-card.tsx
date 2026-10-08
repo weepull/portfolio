@@ -31,7 +31,7 @@ export function ProjectCard({
 }: Props) {
   return (
     <article className="group relative flex h-full flex-col overflow-hidden rounded border border-hairline bg-raised transition-colors duration-150 hover:border-hairline-strong">
-      <div className="relative h-28 border-b border-hairline">
+      <div className="relative h-24 border-b border-hairline">
         {image ? (
           <Image
             src={image}

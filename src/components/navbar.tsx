@@ -1,65 +1,44 @@
-import { Dock, DockIcon } from "@/components/magicui/dock";
-import { buttonVariants } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
-import { cn } from "@/lib/utils";
 import Link from "next/link";
 
+// Static bottom bar: section anchors plus profile links. Raised surface and a
+// hairline border; no blur, no shadow, no pointer-tracking effects.
 export default function Navbar() {
+  const socials = Object.values(DATA.contact.social).filter((s) => s.navbar);
+
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30 mx-auto mb-4 flex origin-bottom h-full max-h-14">
-      <div className="fixed bottom-0 inset-x-0 h-16 w-full bg-background to-transparent backdrop-blur-lg [-webkit-mask-image:linear-gradient(to_top,black,transparent)]"></div>
-      <Dock className="z-50 pointer-events-auto relative mx-auto flex min-h-full h-full items-center px-1 bg-background [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)] transform-gpu [border:1px_solid_rgba(255,255,255,.1)] [box-shadow:0_-20px_80px_-20px_#ffffff1f_inset]">
+    <nav
+      aria-label="Primary"
+      className="fixed inset-x-0 bottom-[calc(1rem+env(safe-area-inset-bottom))] z-30 mx-auto flex h-dock w-max items-center rounded border border-hairline-strong bg-raised px-2"
+    >
+      <ul className="flex items-center">
         {DATA.navbar.map((item) => (
-          <DockIcon key={item.href}>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  href={item.href}
-                  className={cn(
-                    buttonVariants({ variant: "ghost", size: "icon" }),
-                    "size-12"
-                  )}
-                >
-                  <item.icon className="size-4" />
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{item.label}</p>
-              </TooltipContent>
-            </Tooltip>
-          </DockIcon>
+          <li key={item.href}>
+            <Link
+              href={item.href}
+              className="flex h-dock items-center px-3 font-mono text-mono text-fg-muted transition-colors duration-150 hover:text-fg"
+            >
+              {item.label}
+            </Link>
+          </li>
         ))}
-        <Separator orientation="vertical" className="h-full" />
-        {Object.entries(DATA.contact.social)
-          .filter(([_, social]) => social.navbar)
-          .map(([name, social]) => (
-            <DockIcon key={name}>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Link
-                    href={social.url}
-                    className={cn(
-                      buttonVariants({ variant: "ghost", size: "icon" }),
-                      "size-12"
-                    )}
-                    target="_blank"
-                  >
-                    <social.icon className="size-4" />
-                  </Link>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{name}</p>
-                </TooltipContent>
-              </Tooltip>
-            </DockIcon>
-          ))}
-      </Dock>
-    </div>
+      </ul>
+      <div aria-hidden className="mx-1 h-5 w-px bg-hairline-strong" />
+      <ul className="flex items-center">
+        {socials.map((social) => (
+          <li key={social.name}>
+            <Link
+              href={social.url}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={social.name}
+              className="flex size-dock items-center justify-center text-fg-muted transition-colors duration-150 hover:text-fg"
+            >
+              <social.icon className="size-4" />
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
   );
 }

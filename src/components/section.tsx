@@ -12,7 +12,7 @@ interface SectionProps {
 export function Section({ id, label, count, className, children }: SectionProps) {
   return (
     <section id={id} aria-labelledby={`${id}-label`} className={className}>
-      <div className="mb-6 flex items-center gap-4">
+      <div className="mb-5 flex items-center gap-4">
         <h2
           id={`${id}-label`}
           className="font-mono text-label font-medium uppercase text-fg-muted"

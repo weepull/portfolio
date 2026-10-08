@@ -1,5 +1,4 @@
 import Navbar from "@/components/navbar";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
 import { PALETTE } from "@/lib/palette";
 import { cn } from "@/lib/utils";
@@ -73,16 +72,14 @@ export default function RootLayout({
         className={cn(
           // Bottom padding clears the fixed dock: its height, its 1rem offset,
           // breathing room, and the iOS home-indicator inset.
-          "mx-auto min-h-screen max-w-[48rem] bg-page px-6 pt-10 font-sans text-body antialiased sm:pt-10 pb-[calc(var(--dock-height)+3rem+env(safe-area-inset-bottom))]",
+          "mx-auto min-h-screen max-w-[48rem] bg-page px-6 pt-8 font-sans text-body antialiased pb-[calc(var(--dock-height)+3rem+env(safe-area-inset-bottom))]",
           fontSans.variable,
           fontSerif.variable,
           fontMono.variable
         )}
       >
-        <TooltipProvider delayDuration={0}>
-          {children}
-          <Navbar />
-        </TooltipProvider>
+        {children}
+        <Navbar />
         <Analytics />
         <SpeedInsights />
       </body>

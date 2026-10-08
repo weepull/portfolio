@@ -56,33 +56,6 @@ const config = {
         },
         accent: token("accent"),
 
-        // Legacy shadcn names, mapped onto the tokens above until the
-        // remaining components are migrated.
-        border: "rgb(var(--hairline) / 0.09)",
-        input: "rgb(var(--hairline) / 0.09)",
-        ring: token("accent"),
-        background: token("surface-page"),
-        foreground: token("text-primary"),
-        primary: {
-          DEFAULT: token("text-primary"),
-          foreground: token("surface-page"),
-        },
-        secondary: {
-          DEFAULT: token("surface-raised"),
-          foreground: token("text-primary"),
-        },
-        muted: {
-          DEFAULT: token("surface-raised"),
-          foreground: token("text-secondary"),
-        },
-        popover: {
-          DEFAULT: token("surface-raised"),
-          foreground: token("text-primary"),
-        },
-        card: {
-          DEFAULT: token("surface-raised"),
-          foreground: token("text-primary"),
-        },
       },
       borderRadius: {
         DEFAULT: "var(--radius)",
@@ -104,7 +77,7 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [],
 } satisfies Config;
 
 export default config;

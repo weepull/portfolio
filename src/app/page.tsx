@@ -18,7 +18,7 @@ export default function Page() {
     <main className="space-y-12">
       <header
         id="hero"
-        className="space-y-5 motion-safe:animate-enter"
+        className="space-y-4 motion-safe:animate-enter"
       >
         <div className="grid gap-4 sm:grid-cols-[1fr_auto] sm:items-end sm:gap-8">
           <div className="space-y-2">
@@ -68,7 +68,7 @@ export default function Page() {
         count={DATA.projects.length}
         className="motion-safe:animate-enter [animation-delay:60ms]"
       >
-        <p className="-mt-2 mb-5 text-body-sm text-fg-muted">
+        <p className="-mt-1 mb-4 text-body-sm text-fg-muted">
           {DATA.sections.projects.intro}
         </p>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
