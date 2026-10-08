@@ -1,15 +1,6 @@
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { cn } from "@/lib/utils";
+import { RichText } from "@/components/rich-text";
 import Image from "next/image";
 import Link from "next/link";
-import Markdown from "react-markdown";
 
 interface Props {
   title: string;
@@ -17,124 +8,100 @@ interface Props {
   description: string;
   dates: string;
   tags: readonly string[];
-  link?: string;
   image?: string;
-  video?: string;
+  stackLabel: string;
   links?: readonly {
-    icon: React.ReactNode;
     type: string;
     href: string;
   }[];
-  className?: string;
 }
 
+// Stretched-link pattern: the title link's ::after covers the whole card so
+// the card is clickable without nesting anchors. Inner links (description
+// markdown, Source/Paper) sit above it with relative z-10.
 export function ProjectCard({
   title,
   href,
   description,
   dates,
   tags,
-  link,
   image,
-  video,
+  stackLabel,
   links,
-  className,
 }: Props) {
-  // Stretched-link pattern: the title link's ::after covers the whole card so
-  // the card is clickable without nesting anchors. Inner links (description
-  // markdown, Source/Paper badges) sit above it with relative z-10.
   return (
-    <Card
-      className={cn(
-        "group relative flex flex-col overflow-hidden border transition-all duration-300 ease-out h-full",
-        href &&
-          "hover:shadow-lg hover:border-foreground/30 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-ring",
-        className
-      )}
-    >
-      {video && (
-        <video
-          src={video}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="pointer-events-none mx-auto h-40 w-full object-cover object-top" // needed because random black line at bottom of video
-        />
-      )}
-      {image && (
-        <Image
-          src={image}
-          alt={title}
-          width={500}
-          height={300}
-          className="h-40 w-full overflow-hidden object-cover object-top"
-        />
-      )}
-      <CardHeader className="px-2">
-        <div className="space-y-1">
-          <CardTitle className="mt-1 text-base">
+    <article className="group relative flex h-full flex-col overflow-hidden rounded border border-hairline bg-raised transition-colors duration-150 hover:border-hairline-strong">
+      <div className="relative h-28 border-b border-hairline">
+        {image ? (
+          <Image
+            src={image}
+            alt=""
+            fill
+            sizes="(min-width: 640px) 352px, 100vw"
+            className="object-cover object-top"
+          />
+        ) : (
+          // Cards without a thumbnail get a recessed plate of the same height
+          // showing the stack, so the grid keeps its rhythm.
+          <div className="flex h-full flex-col justify-end gap-2 bg-page p-4">
+            <p className="font-mono text-label font-medium uppercase text-fg-muted">
+              {stackLabel}
+            </p>
+            <ul className="flex flex-wrap gap-x-3 gap-y-1 font-mono text-mono text-fg">
+              {tags.map((tag) => (
+                <li key={tag}>{tag}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+
+      <div className="flex flex-1 flex-col gap-3 p-4">
+        <div>
+          <h3 className="text-title font-medium text-fg">
             {href ? (
               <Link
                 href={href}
                 target="_blank"
-                className="outline-none after:absolute after:inset-0 after:content-[''] group-hover:underline underline-offset-4"
+                rel="noreferrer"
+                className="transition-colors duration-150 after:absolute after:inset-0 after:rounded after:content-[''] group-hover:text-accent focus-visible:outline-none focus-visible:after:outline focus-visible:after:outline-2 focus-visible:after:outline-offset-2 focus-visible:after:outline-accent"
               >
                 {title}
-                <span
-                  aria-hidden
-                  className="ml-1 inline-block transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                >
-                  ↗
-                </span>
               </Link>
             ) : (
               title
             )}
-          </CardTitle>
-          <time className="font-sans text-xs">{dates}</time>
-          <div className="hidden font-sans text-xs underline print:visible">
-            {link?.replace("https://", "").replace("www.", "").replace("/", "")}
+          </h3>
+          <div className="flex items-baseline justify-between gap-4">
+            <p className="font-mono text-mono text-fg-muted">{dates}</p>
+            {links && links.length > 0 && (
+              <div className="flex gap-3">
+                {links.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="relative z-10 font-mono text-mono text-accent underline-offset-4 hover:underline"
+                  >
+                    {link.type}
+                    <span aria-hidden> ↗</span>
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
-          <Markdown className="prose max-w-full text-pretty font-sans text-xs text-muted-foreground prose-invert [&_a]:relative [&_a]:z-10">
-            {description}
-          </Markdown>
         </div>
-      </CardHeader>
-      <CardContent className="mt-auto flex flex-col px-2">
-        {tags && tags.length > 0 && (
-          <div className="mt-2 flex flex-wrap gap-1">
-            {tags?.map((tag) => (
-              <Badge
-                className="px-1 py-0 text-[10px]"
-                variant="secondary"
-                key={tag}
-              >
-                {tag}
-              </Badge>
-            ))}
-          </div>
+
+        <RichText className="text-body-sm text-fg-muted">{description}</RichText>
+
+        {image && tags.length > 0 && (
+          <p className="mt-auto font-mono text-mono text-fg-muted">
+            {tags.join(" · ")}
+          </p>
         )}
-      </CardContent>
-      <CardFooter className="px-2 pb-2">
-        {links && links.length > 0 && (
-          <div className="flex flex-row flex-wrap items-start gap-1">
-            {links?.map((link, idx) => (
-              <Link
-                href={link.href}
-                key={idx}
-                target="_blank"
-                className="relative z-10"
-              >
-                <Badge key={idx} className="flex gap-2 px-2 py-1 text-[10px]">
-                  {link.icon}
-                  {link.type}
-                </Badge>
-              </Link>
-            ))}
-          </div>
-        )}
-      </CardFooter>
-    </Card>
+
+      </div>
+    </article>
   );
 }

@@ -1,5 +1,29 @@
 import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { extendTailwindMerge } from "tailwind-merge";
+
+// Teach tailwind-merge the custom type scale; otherwise it reads e.g.
+// `text-body-sm` as a colour and drops it when merged with `text-fg-muted`.
+const twMerge = extendTailwindMerge({
+  extend: {
+    classGroups: {
+      "font-size": [
+        {
+          text: [
+            "display",
+            "display-sm",
+            "heading",
+            "lead",
+            "title",
+            "body",
+            "body-sm",
+            "mono",
+            "label",
+          ],
+        },
+      ],
+    },
+  },
+});
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

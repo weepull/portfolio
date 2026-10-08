@@ -1,240 +1,194 @@
-import { Icons } from "@/components/icons";
-import BlurFade from "@/components/magicui/blur-fade";
-import BlurFadeText from "@/components/magicui/blur-fade-text";
+import { Entry } from "@/components/entry";
 import { ProjectCard } from "@/components/project-card";
-import { ResumeCard } from "@/components/resume-card";
-import { Badge } from "@/components/ui/badge";
+import { RichText } from "@/components/rich-text";
+import { Section, SubLabel } from "@/components/section";
 import { buttonVariants } from "@/components/ui/button";
 import { DATA } from "@/data/resume";
 import Link from "next/link";
-import Markdown from "react-markdown";
 
-const BLUR_FADE_DELAY = 0.04;
+const githubHandle = DATA.github.replace(/^https?:\/\//, "");
+const currentRole = DATA.work[0];
+const publications = DATA.certification.filter((c) => c.kind === "publication");
+const certifications = DATA.certification.filter(
+  (c) => c.kind === "certification"
+);
 
 export default function Page() {
   return (
-    <main className="flex flex-col min-h-[100dvh] space-y-10">
-      <section id="hero">
-        <div className="mx-auto w-full max-w-2xl space-y-8">
-          <div className="gap-2 flex justify-between">
-            <div className="flex-col flex flex-1 space-y-1.5">
-              <BlurFadeText
-                delay={BLUR_FADE_DELAY}
-                className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none"
-                text={DATA.hero.greeting}
-              />
-              <BlurFadeText
-                className="max-w-[600px] md:text-xl"
-                delay={BLUR_FADE_DELAY}
-                text={DATA.description}
-              />
-              <BlurFade delay={BLUR_FADE_DELAY * 2}>
-                <div className="flex flex-wrap gap-2 pt-3">
-                  {DATA.hero.links.map((link) => {
-                    const external = link.href.startsWith("http");
-                    return (
-                      <Link
-                        key={link.label}
-                        href={link.href}
-                        target={external ? "_blank" : undefined}
-                        className={buttonVariants({
-                          variant: link.primary ? "default" : "outline",
-                          size: "sm",
-                        })}
-                      >
-                        {link.icon && <link.icon className="size-4 mr-2" />}
-                        {link.label}
-                      </Link>
-                    );
-                  })}
-                </div>
-              </BlurFade>
-            </div>
+    <main className="space-y-12">
+      <header
+        id="hero"
+        className="space-y-5 motion-safe:animate-enter"
+      >
+        <div className="grid gap-4 sm:grid-cols-[1fr_auto] sm:items-end sm:gap-8">
+          <div className="space-y-2">
+            <p className="font-mono text-mono text-fg-muted">
+              {DATA.hero.greeting}
+            </p>
+            <h1 className="font-serif text-display-sm text-fg sm:text-display">
+              {DATA.name}
+            </h1>
           </div>
+          <dl className="space-y-0.5 font-mono text-mono text-fg-muted sm:pb-1 sm:text-right">
+            <dt className="sr-only">Current role</dt>
+            <dd className="text-fg">{currentRole.title}</dd>
+            <dd>{currentRole.company}</dd>
+            <dt className="sr-only">Location</dt>
+            <dd>{DATA.location}</dd>
+          </dl>
         </div>
-      </section>
 
-      <section id="projects">
-        <div className="space-y-12 w-full py-12">
-          <BlurFade delay={BLUR_FADE_DELAY * 2}>
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
-                  {DATA.sections.projects.label}
-                </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                  {DATA.sections.projects.heading}
-                </h2>
-                <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  {DATA.sections.projects.intro}
-                </p>
-              </div>
-            </div>
-          </BlurFade>
-          <div className="flex flex-col gap-5">
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 max-w-[800px] mx-auto">
-              {DATA.projects.map((project, id) => (
-                <BlurFade
-                  key={project.title}
-                  delay={BLUR_FADE_DELAY * 3 + id * 0.05}
-                >
-                  <ProjectCard
-                    href={project.href}
-                    key={project.title}
-                    title={project.title}
-                    description={project.description}
-                    dates={project.dates}
-                    tags={project.technologies}
-                    image={project.image}
-                    video={project.video}
-                    links={project.links}
-                  />
-                </BlurFade>
-              ))}
-            </div>
-            <Link
-              href={DATA.github}
-              className="mx-auto w-max border flex gap-2 p-2 rounded-lg hover:bg-muted transition-colors"
-              target="_blank"
-            >
-              <span>{DATA.sections.projects.seeAll}</span>
-              <Icons.github className="size-6" />
-            </Link>
-          </div>
-        </div>
-      </section>
+        <p className="max-w-[34rem] text-lead text-fg">{DATA.description}</p>
 
-      <section id="about">
-        <BlurFade delay={BLUR_FADE_DELAY * 4}>
-          <h2 className="text-xl font-bold">About</h2>
-        </BlurFade>
-        <BlurFade delay={BLUR_FADE_DELAY * 5}>
-          <Markdown className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground prose-invert">
-            {DATA.summary}
-          </Markdown>
-        </BlurFade>
-      </section>
-
-      <section id="publications">
-        <div className="flex min-h-0 flex-col gap-y-3">
-          <BlurFade delay={BLUR_FADE_DELAY * 6}>
-            <h2 className="text-xl font-bold">Publications & Certifications</h2>
-          </BlurFade>
-          {DATA.certification.map((certification, id) => (
-            <BlurFade
-              key={certification.title}
-              delay={BLUR_FADE_DELAY * 7 + id * 0.05}
-            >
-              <ResumeCard
-                key={certification.title}
-                href={certification.href}
-                logoUrl={certification.logoUrl}
-                altText={certification.title}
-                title={certification.title}
-                subtitle={certification.subtitle}
-                period={certification.start}
-              />
-            </BlurFade>
-          ))}
-        </div>
-      </section>
-
-      <section id="work">
-        <div className="flex min-h-0 flex-col gap-y-3">
-          <BlurFade delay={BLUR_FADE_DELAY * 8}>
-            <h2 className="text-xl font-bold">Experience</h2>
-          </BlurFade>
-          {DATA.work.map((work, id) => (
-            <BlurFade
-              key={work.company}
-              delay={BLUR_FADE_DELAY * 9 + id * 0.05}
-            >
-              <ResumeCard
-                key={work.company}
-                logoUrl={work.logoUrl}
-                altText={work.company}
-                title={work.company}
-                subtitle={work.title}
-                href={work.href}
-                badges={work.badges}
-                period={`${work.start} - ${work.end}`}
-                description={work.description}
-              />
-            </BlurFade>
-          ))}
-        </div>
-      </section>
-
-      <section id="skills">
-        <div className="flex min-h-0 flex-col gap-y-3">
-          <BlurFade delay={BLUR_FADE_DELAY * 10}>
-            <h2 className="text-xl font-bold">Skills</h2>
-          </BlurFade>
-          <div className="flex flex-wrap gap-1">
-            {DATA.skills.map((skill, id) => (
-              <BlurFade key={skill} delay={BLUR_FADE_DELAY * 11 + id * 0.03}>
-                <Badge key={skill}>{skill}</Badge>
-              </BlurFade>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="education">
-        <div className="flex min-h-0 flex-col gap-y-3">
-          <BlurFade delay={BLUR_FADE_DELAY * 12}>
-            <h2 className="text-xl font-bold">Education</h2>
-          </BlurFade>
-          {DATA.education.map((education, id) => (
-            <BlurFade
-              key={education.school}
-              delay={BLUR_FADE_DELAY * 13 + id * 0.05}
-            >
-              <ResumeCard
-                key={education.school}
-                href={education.href}
-                logoUrl={education.logoUrl}
-                altText={education.school}
-                title={education.school}
-                subtitle={education.degree}
-                period={`${education.start} - ${education.end}`}
-                description={education.description}
-              />
-            </BlurFade>
-          ))}
-        </div>
-      </section>
-
-      <section id="contact">
-        <div className="grid items-center justify-center gap-4 px-4 text-center md:px-6 w-full py-12">
-          <BlurFade delay={BLUR_FADE_DELAY * 14}>
-            <div className="space-y-3">
-              <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
-                {DATA.sections.contact.label}
-              </div>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                {DATA.sections.contact.heading}
-              </h2>
-              <Markdown
-                className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"
-                components={{
-                  a: ({ href, children }) => (
-                    <Link
-                      href={href ?? "#"}
-                      target={href?.startsWith("mailto:") ? undefined : "_blank"}
-                      className="text-blue-500 hover:underline"
-                    >
-                      {children}
-                    </Link>
-                  ),
-                }}
+        <div className="flex flex-wrap items-center gap-2">
+          {DATA.hero.links.map((link) => {
+            const external = link.href.startsWith("http");
+            return (
+              <Link
+                key={link.label}
+                href={link.href}
+                target={external ? "_blank" : undefined}
+                rel={external ? "noreferrer" : undefined}
+                className={buttonVariants({
+                  variant: link.primary ? "default" : "outline",
+                  size: "sm",
+                })}
               >
-                {DATA.sections.contact.body}
-              </Markdown>
-            </div>
-          </BlurFade>
+                {link.icon && <link.icon className="size-4" />}
+                {link.label}
+              </Link>
+            );
+          })}
         </div>
-      </section>
+      </header>
+
+      <Section
+        id="projects"
+        label={DATA.sections.projects.label}
+        count={DATA.projects.length}
+        className="motion-safe:animate-enter [animation-delay:60ms]"
+      >
+        <p className="-mt-2 mb-5 text-body-sm text-fg-muted">
+          {DATA.sections.projects.intro}
+        </p>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {DATA.projects.map((project) => (
+            <ProjectCard
+              key={project.title}
+              href={project.href}
+              title={project.title}
+              description={project.description}
+              dates={project.dates}
+              tags={project.technologies}
+              image={project.image}
+              stackLabel={DATA.sections.projects.stackLabel}
+              links={project.links}
+            />
+          ))}
+        </div>
+        <p className="mt-6 text-body-sm text-fg-muted">
+          {DATA.sections.projects.seeAll}{" "}
+          <Link
+            href={DATA.github}
+            target="_blank"
+            rel="noreferrer"
+            className="font-mono text-mono text-accent underline decoration-accent/40 underline-offset-4 transition-colors duration-150 hover:decoration-accent"
+          >
+            {githubHandle}
+            <span aria-hidden> ↗</span>
+          </Link>
+        </p>
+      </Section>
+
+      <Section id="about" label={DATA.sections.about.label}>
+        <RichText className="max-w-prose text-body text-fg-muted">
+          {DATA.summary}
+        </RichText>
+      </Section>
+
+      <Section
+        id="publications"
+        label={DATA.sections.publications.label}
+        count={publications.length}
+      >
+        <div className="space-y-6">
+          {publications.map((item) => (
+            <Entry
+              key={item.title}
+              title={item.title}
+              subtitle={item.subtitle}
+              period={item.start}
+              href={item.href}
+            />
+          ))}
+        </div>
+        <SubLabel className="mb-4 mt-10">
+          {DATA.sections.publications.certificationLabel}
+        </SubLabel>
+        <div className="space-y-6">
+          {certifications.map((item) => (
+            <Entry
+              key={item.title}
+              title={item.title}
+              subtitle={item.subtitle}
+              period={item.start}
+              href={item.href}
+            />
+          ))}
+        </div>
+      </Section>
+
+      <Section id="work" label={DATA.sections.work.label}>
+        <div className="space-y-6">
+          {DATA.work.map((work) => (
+            <Entry
+              key={work.company}
+              title={work.company}
+              subtitle={work.title}
+              period={`${work.start} – ${work.end}`}
+              href={work.href}
+              description={work.description}
+            />
+          ))}
+        </div>
+      </Section>
+
+      <Section id="skills" label={DATA.sections.skills.label}>
+        <ul className="flex flex-wrap gap-x-2 gap-y-1 font-mono text-mono text-fg">
+          {DATA.skills.map((skill) => (
+            <li
+              key={skill}
+              className="after:ml-2 after:text-fg-muted after:content-['/'] last:after:content-none"
+            >
+              {skill}
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      <Section id="education" label={DATA.sections.education.label}>
+        <div className="space-y-6">
+          {DATA.education.map((education) => (
+            <Entry
+              key={education.school}
+              title={education.school}
+              subtitle={education.degree}
+              period={`${education.start} – ${education.end}`}
+              href={education.href}
+              description={education.description}
+            />
+          ))}
+        </div>
+      </Section>
+
+      <Section id="contact" label={DATA.sections.contact.label}>
+        <h3 className="mb-2 text-heading font-semibold text-fg">
+          {DATA.sections.contact.heading}
+        </h3>
+        <RichText className="max-w-prose text-body text-fg-muted">
+          {DATA.sections.contact.body}
+        </RichText>
+      </Section>
     </main>
   );
 }

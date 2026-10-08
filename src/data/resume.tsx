@@ -55,11 +55,16 @@ export const DATA = {
   sections: {
     projects: {
       label: "Projects",
-      heading: "Things I've built",
       intro:
         "Retrieval and LLM systems, and explainable models for medical imaging. Each one links to its source.",
       seeAll: "See all on",
+      stackLabel: "Stack",
     },
+    about: { label: "About" },
+    publications: { label: "Publications", certificationLabel: "Certification" },
+    work: { label: "Experience" },
+    skills: { label: "Skills" },
+    education: { label: "Education" },
     contact: {
       label: "Contact",
       heading: "Get in touch",
@@ -96,10 +101,8 @@ export const DATA = {
     {
       company: "Faible Media (Graphics India)",
       href: "",
-      badges: [],
       location: "Mumbai, MH",
       title: "Prompt Engineer",
-      logoUrl: "",
       start: "May 2026",
       end: "Present",
       description:
@@ -112,7 +115,6 @@ export const DATA = {
       school: "Shah And Anchor Kutchi Engineering College, Mumbai",
       href: "https://www.sakec.ac.in/",
       degree: "B.Tech in Artificial Intelligence & Data Science (CGPA: 8.0)",
-      logoUrl: "",
       start: "2022",
       end: "2026",
       description:
@@ -125,26 +127,26 @@ export const DATA = {
       title:
         "Chest X-Ray Report Summarization using Vision-Text Transformer",
       href: "",
-      logoUrl: "",
       start: "2026",
       end: "",
       subtitle: "Accepted — ICNDIA 2026 (IEEE)",
+      kind: "publication",
     },
     {
       title: "Image Style Transfer Using CycleGAN",
       href: "/irjmets_certificate.pdf",
-      logoUrl: "",
       start: "May 2025",
       end: "",
       subtitle: "Published — IRJMETS, Vol. 07, Issue 05",
+      kind: "publication",
     },
     {
       title: "Advanced Learning Algorithms",
       href: "/coursera_certificate.pdf",
-      logoUrl: "",
       start: "2024",
       end: "",
       subtitle: "DeepLearning.AI & Stanford University (Coursera)",
+      kind: "certification",
     },
   ],
 
@@ -173,7 +175,6 @@ export const DATA = {
         },
       ],
       image: "",
-      video: "",
     },
     {
       title: "Chest X-ray Anomaly Detection & Summary Generation",
@@ -195,7 +196,6 @@ export const DATA = {
         },
       ],
       image: "/chest_xray_summary.webp",
-      video: "",
     },
     {
       title: "Pneumonia Detection — CNN vs ResNet-18",
@@ -213,7 +213,6 @@ export const DATA = {
         },
       ],
       image: "/pneumonia_detection.webp",
-      video: "",
     },
     {
       title: "Image Style Transfer Using CycleGAN",
@@ -236,7 +235,6 @@ export const DATA = {
         },
       ],
       image: "/image_style_transfer.webp",
-      video: "",
     },
   ],
 } as const;

@@ -71,7 +71,9 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased max-w-2xl mx-auto py-12 sm:py-24 px-6",
+          // Bottom padding clears the fixed dock: its height, its 1rem offset,
+          // breathing room, and the iOS home-indicator inset.
+          "mx-auto min-h-screen max-w-[48rem] bg-page px-6 pt-10 font-sans text-body antialiased sm:pt-10 pb-[calc(var(--dock-height)+3rem+env(safe-area-inset-bottom))]",
           fontSans.variable,
           fontSerif.variable,
           fontMono.variable
