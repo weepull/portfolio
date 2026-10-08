@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { DATA } from "@/data/resume";
+import { PALETTE } from "@/lib/palette";
 
 export const runtime = "edge";
 export const alt = `${DATA.name} — ${DATA.description}`;
@@ -16,7 +17,7 @@ export default async function Image() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          backgroundColor: "#09090b",
+          backgroundColor: PALETTE.page,
           padding: "80px",
         }}
       >
@@ -25,7 +26,7 @@ export default async function Image() {
             display: "flex",
             fontSize: 76,
             fontWeight: 700,
-            color: "#fafafa",
+            color: PALETTE.textPrimary,
             letterSpacing: "-0.04em",
           }}
         >
@@ -36,7 +37,7 @@ export default async function Image() {
             display: "flex",
             marginTop: 28,
             fontSize: 34,
-            color: "#a1a1aa",
+            color: PALETTE.textSecondary,
             lineHeight: 1.35,
             maxWidth: 900,
           }}
@@ -48,7 +49,7 @@ export default async function Image() {
             display: "flex",
             marginTop: 56,
             fontSize: 26,
-            color: "#71717a",
+            color: PALETTE.textSecondary,
           }}
         >
           {DATA.github.replace(/^https?:\/\//, "")}
