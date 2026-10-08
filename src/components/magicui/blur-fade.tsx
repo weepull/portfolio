@@ -1,69 +1,20 @@
-"use client";
-
-import { AnimatePresence, motion, useInView, Variants } from "framer-motion";
-
-// framer-motion types the IntersectionObserver rootMargin as a template literal
-// union rather than a plain string; mirror that so the prop stays type-safe.
-type MarginValue = `${number}${"px" | "%"}`;
-type MarginType =
-  | MarginValue
-  | `${MarginValue} ${MarginValue}`
-  | `${MarginValue} ${MarginValue} ${MarginValue}`
-  | `${MarginValue} ${MarginValue} ${MarginValue} ${MarginValue}`;
-import { useRef } from "react";
+import { cn } from "@/lib/utils";
 
 interface BlurFadeProps {
   children: React.ReactNode;
   className?: string;
-  variant?: {
-    hidden: { y: number };
-    visible: { y: number };
-  };
-  duration?: number;
   delay?: number;
-  yOffset?: number;
-  inView?: boolean;
-  inViewMargin?: MarginType;
-  blur?: string;
 }
-const BlurFade = ({
-  children,
-  className,
-  variant,
-  duration = 0.4,
-  delay = 0,
-  yOffset = 6,
-  inView = false,
-  inViewMargin = "-50px",
-  blur = "6px",
-}: BlurFadeProps) => {
-  const ref = useRef(null);
-  const inViewResult = useInView(ref, { once: true, margin: inViewMargin });
-  const isInView = !inView || inViewResult;
-  const defaultVariants: Variants = {
-    hidden: { y: yOffset, opacity: 0, filter: `blur(${blur})` },
-    visible: { y: -yOffset, opacity: 1, filter: `blur(0px)` },
-  };
-  const combinedVariants = variant || defaultVariants;
-  return (
-    <AnimatePresence>
-      <motion.div
-        ref={ref}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        exit="hidden"
-        variants={combinedVariants}
-        transition={{
-          delay: 0.04 + delay,
-          duration,
-          ease: "easeOut",
-        }}
-        className={className}
-      >
-        {children}
-      </motion.div>
-    </AnimatePresence>
-  );
-};
+
+// Content is rendered visible in the server HTML; the entrance is a CSS-only
+// enhancement that needs no JS and is skipped under prefers-reduced-motion.
+const BlurFade = ({ children, className, delay = 0 }: BlurFadeProps) => (
+  <div
+    className={cn("motion-safe:animate-enter", className)}
+    style={{ animationDelay: `${0.04 + delay}s` }}
+  >
+    {children}
+  </div>
+);
 
 export default BlurFade;
