@@ -23,7 +23,7 @@ export const DATA = {
   description:
     "AI engineer. I build LLM retrieval pipelines and explainable computer-vision systems for medical imaging.",
   summary:
-    `B.Tech in AI & Data Science (2026). I currently work as a Prompt Engineer at Faible Media, designing and stress-testing prompts for two production generative pipelines.\n\nMy own work sits in two places. **Retrieval and LLM systems** — most recently [Research Gap Hunter](${RESEARCH_GAP_HUNTER_URL}), a FastAPI/Neo4j/Qdrant platform that mines stated limitations from a 127-paper corpus and ranks underexplored research gaps. **Explainable medical imaging** — unsupervised anomaly detection on chest X-rays with Swin Transformer, and CNN/ResNet-18 classifiers with Grad-CAM.\n\nOne published paper, and a second accepted at ICNDIA 2026 (IEEE).`,
+    `B.Tech in AI & Data Science (2026). I currently work as a Prompt Engineer at Faible Media, designing and stress-testing prompts for two production generative pipelines.\n\nMy own work sits in two places. **Retrieval and LLM systems** — most recently [Research Gap Hunter](${RESEARCH_GAP_HUNTER_URL}), a FastAPI/Neo4j/Qdrant platform that mines stated limitations from a 149-paper corpus and ranks underexplored research gaps. **Explainable medical imaging** — unsupervised anomaly detection on chest X-rays with Swin Transformer, and CNN/ResNet-18 classifiers with Grad-CAM.\n\nOne published paper, and a second accepted at ICNDIA 2026 (IEEE).`,
   skills: [
     "Python",
     "PyTorch",
@@ -160,7 +160,7 @@ export const DATA = {
       dates: "Aug 2026 – Present",
       active: true,
       description:
-        "Mines stated limitations from a 127-paper corpus with an LLM, links them in Neo4j and Qdrant, and ranks underexplored research gaps by frequency, recency, and solution deficit.",
+        "Mines stated limitations from a 149-paper corpus with an LLM, links them in Neo4j and Qdrant, and ranks underexplored research gaps by frequency, recency, and solution deficit.",
       technologies: [
         "FastAPI",
         "Neo4j",
